@@ -5,3 +5,15 @@ html, body {
   font-family: "Monaco", monospace;
   font-size: 14px;
 }
+
+#root {
+  padding: 10px;
+}
+
+button {
+  border: none;
+  border-radius: 5px;
+  background: #27ae60;
+  color: #ffffff;
+  padding: 5px;
+}
