@@ -1,0 +1,16 @@
+RUST WEB STARTER KIT
+--------------------
+
+Template project for creating web app in Rust.
+
+This project use `stdweb` package for handling DOM manipulating and providing browser's API to Rust.
+
+To build the project, simply type:
+
+  $ make
+
+The output will be populated to:
+
+  > /out/main.js
+
+Run the web app with `index.html`.
