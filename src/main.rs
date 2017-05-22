@@ -5,6 +5,7 @@ use stdweb::web::{
     document,
     INode,
     IEventTarget,
+    IElement,
     Element
 };
 use stdweb::web::event::ClickEvent;
@@ -37,11 +38,44 @@ macro_rules! component {
 }
 
 macro_rules! mount_component {
-    ( $root:ident, $element:ident) => {
-        $root.append_child($element.get_element());
+    ($parent:expr, $target:expr, $element:ident) => {
+        let target = $parent.query_selector($target).unwrap();
+        target.append_child($element.get_element());
         $element.render();
     }
 }
+
+macro_rules! html {
+    ($html:expr) => {
+        unsafe {
+            js!(
+                var parser = new DOMParser();
+                var el = parser.parseFromString($html, "text/xml");
+                return el.documentElement; 
+            ).into_reference_unchecked()
+        }.unwrap()
+    }
+}
+
+component!(AppComponent => {
+    init: {
+        let e: Element = html!("
+        <div>
+            <span>Hello</span>
+            <span>World</span>
+            <br/>
+            <div id=\"greenButton\"></div>
+        </div>
+        ");
+
+        let mut button = GreenButton::new();
+        mount_component!(e, "#greenButton", button);
+
+        e
+    },
+    render: |this: &Element| {
+    }
+});
 
 component!(GreenButton => {
     init: {
@@ -61,10 +95,8 @@ component!(GreenButton => {
 fn main() {
     stdweb::initialize();
 
-    let mut button = GreenButton::new();
-    let root = document().query_selector("#root").unwrap();
-
-    mount_component!(root, button);
+    let mut app = AppComponent::new();
+    mount_component!(document(), "#root", app);
 
     stdweb::event_loop();
 }
