@@ -50,7 +50,7 @@ macro_rules! html {
         unsafe {
             js!(
                 var parser = new DOMParser();
-                var el = parser.parseFromString($html, "text/xml");
+                var el = parser.parseFromString($html, "text/html");
                 return el.documentElement; 
             ).into_reference_unchecked()
         }.unwrap()
@@ -61,8 +61,10 @@ component!(AppComponent => {
     init: {
         let e: Element = html!("
         <div>
-            <span>Hello</span>
-            <span>World</span>
+            <p>
+                <span>Hello</span>
+                <span>World</span>
+            </p>
             <GreenButton />
         </div>
         ");
