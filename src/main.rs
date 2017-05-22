@@ -63,7 +63,6 @@ component!(AppComponent => {
         <div>
             <span>Hello</span>
             <span>World</span>
-            <br/>
             <GreenButton />
         </div>
         ");
