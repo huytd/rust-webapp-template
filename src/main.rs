@@ -64,12 +64,12 @@ component!(AppComponent => {
             <span>Hello</span>
             <span>World</span>
             <br/>
-            <div id=\"greenButton\"></div>
+            <GreenButton />
         </div>
         ");
 
         let mut button = GreenButton::new();
-        mount_component!(e, "#greenButton", button);
+        mount_component!(e, "GreenButton", button);
 
         e
     },
